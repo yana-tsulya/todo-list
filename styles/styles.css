@@ -51,12 +51,12 @@ a:hover                        { text-decoration:none; }
 /*-------------------------------------CONTENT--------------------------------------*/
 /*----------------------------------------------------------------------------------*/
 .content {
-	width: 340px;
+	width: 740px;
+	min-height: 250px;
 	margin: 10px auto 0;
 	padding: 20px;
 	border-radius: 3px;
 	background-color: #00b3ee;
-	font-family: "Oswald", sans-serif;
 }
 
 .content form li#submit-button {
@@ -79,11 +79,41 @@ a:hover                        { text-decoration:none; }
 	background-color: #F1F1F1;
 	border-radius: 3px;
 	border: 1px solid #CECECE;
-	font-family: "Oswald", sans-serif;
 	color: #000000;
 	text-indent: 10px;
 }
+
+.content .control {
+	width: 140px;
+	float: right;
+	padding: 5px 10px;
+	margin: 20px 0 0 20px;
+	background-color: #F1F1F1;
+	border-radius: 3px;
+	border: 1px solid #CECECE;
+	color: #000000;
+}
+.content .control span {
+	font-weight: bold;
+}
+.content .control>li {
+	margin-bottom: 5px;
+	border-top: 1px solid #CECECE;
+}
+.content .control h3, .content .control>li:first-child {
+	border-top: none;
+	text-align: center;
+}
+.content .control li.active {
+	font-weight: bold;
+	cursor: auto;
+}
+.content .control ul li {
+	cursor: pointer;
+	line-height: 18px;
+}
 .content #task-list {
+	overflow: hidden;
 	margin-top: 20px;
 }
 .content #task-list li:first-child {
@@ -113,10 +143,6 @@ a:hover                        { text-decoration:none; }
 	background: #F1F1F1;
 	line-height: 30px;
 	text-align: center;
-}
-.content #task-list li a#delete-all {
-	float: right;
-	background: #F1F1F1 url("../images/delete30.png") no-repeat 3px;
 }
 .content #task-list li a.delete {
 	overflow: hidden;

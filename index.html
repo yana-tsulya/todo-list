@@ -15,10 +15,32 @@
         </ul>
     </form>
 
+    <ul class="control">
+        <li>
+            <h3>Number of tasks</h3>
+            <span id="all-tasks">0</span>///<span id="done-tasks">0</span>
+        </li>
+        <li>
+            <h3>Delete</h3>
+            <ul>
+                <li id="delete-all">Delete all tasks</li>
+                <li id="delete-done">Delete done tasks</li>
+            </ul>
+        </li>
+        <li>
+            <h3>Filter</h3>
+            <ul id="filters">
+                <li id="show-all" class="active">All tasks</li>
+                <li id="show-done">Done tasks</li>
+                <li id="show-undone">Not done tasks</li>
+            </ul>
+        </li>
+    </ul>
+
     <ul id="task-list">
-        <li><a id="check-all" href="#">Check all tasks</a><a id="delete-all" href="#">Delete all tasks</a><h2>Your tasks</h2></li>
+        <li><a id="check-all" href="#">Check all tasks</a><h2>Your tasks</h2></li>
     </ul>
 </div>
-<script src="js/main.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

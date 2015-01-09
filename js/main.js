@@ -70,6 +70,7 @@ var newTask = document.querySelector('#new-task > input'),
     unCheckedItems, editedTask, editedTaskParent;
 
 openSavedTasks();
+tasksCount();
 
 submitButton.addEventListener('click', function(event) {
     event.preventDefault();

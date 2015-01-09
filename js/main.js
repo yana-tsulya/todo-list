@@ -2,6 +2,57 @@
  * Created by yana on 12/17/14.
  */
 
+function tasksCount() {
+    var doneTasksNumber = 0,
+        tasksNumber = 0;
+    [].forEach.call(document.querySelectorAll('.check.checked'), function() {
+        doneTasksNumber++;
+    });
+    document.getElementById('done-tasks').textContent = doneTasksNumber + '';
+    [].forEach.call(document.querySelectorAll('.check'), function() {
+        tasksNumber++;
+    });
+    document.getElementById('all-tasks').textContent = tasksNumber + '';
+}
+
+function savingTaskList() {
+    var tasksArray = [],
+        i = 0;
+    [].forEach.call(taskList.querySelectorAll('li'), function(element) {
+        tasksArray[i] = {};
+        if (element.querySelector('span')) {
+            tasksArray[i].task = element.querySelector('span').textContent;
+            if (element.querySelector('.check').classList.contains('checked')) {
+                tasksArray[i++].check = true;
+            }
+            else {
+                tasksArray[i++].check = false;
+            }
+        }
+        else if (element.querySelector('input[type=text]')) {
+            tasksArray[i].task = element.querySelector('input[type=text]').value;
+            tasksArray[i++].check = false;
+        }
+    });
+    localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
+}
+
+function openSavedTasks() {
+    var savedTasks = JSON.parse(localStorage.getItem('tasksArray'));
+    savedTasks.forEach(function(element) {
+        var taskHtml = document.createElement('li');
+        taskList.appendChild(taskHtml);
+        taskList.lastChild.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
+        taskList.lastChild.querySelector('span').textContent = element.task;
+        if (element.check) {
+            taskList.lastChild.querySelector('.check').classList.add('checked');
+        }
+    });
+    if (savedTasks.every(function(element) {return element.check})) {
+        checkAll.classList.add('checked');
+    }
+}
+
 var newTask = document.querySelector('#new-task > input'),
     submitButton = document.querySelector('#submit-button > input'),
     taskList = document.getElementById('task-list'),
@@ -16,22 +67,9 @@ var newTask = document.querySelector('#new-task > input'),
         done : document.getElementById('show-done'),
         undone : document.getElementById('show-undone')
     },
-    unCheckedItems;
+    unCheckedItems, editedTask, editedTaskParent;
 
-//taskList.innerHTML = localStorage.getItem(JSON.parse('savedTasks'));
-
-function tasksCount() {
-    var doneTasksNumber = 0,
-        tasksNumber = 0;
-    [].forEach.call(document.querySelectorAll('.check.checked'), function(element) {
-        doneTasksNumber++;
-    });
-    document.getElementById('done-tasks').textContent = doneTasksNumber + '';
-    [].forEach.call(document.querySelectorAll('.check'), function(element) {
-        tasksNumber++;
-    });
-    document.getElementById('all-tasks').textContent = tasksNumber + '';
-}
+openSavedTasks();
 
 submitButton.addEventListener('click', function(event) {
     event.preventDefault();
@@ -42,7 +80,6 @@ submitButton.addEventListener('click', function(event) {
         taskList.lastChild.querySelector('span').textContent = newTask.value;
         newTask.value = "";
     }
-  //  localStorage.setItem('savedTasks', JSON.stringify(taskList.children));
 });
 
 document.addEventListener('click', function(event) {
@@ -67,16 +104,16 @@ document.addEventListener('click', function(event) {
             }
         }
         else if (event.target == event.target.parentNode.querySelector('span')) {
-            var editedTask = event.target.textContent,
-                editedTaskParent = event.target.parentNode;
+            editedTask = event.target.textContent;
+            editedTaskParent = event.target.parentNode;
             editedTaskParent.innerHTML = '<form><input type="text"/><input class="edit" type="submit" name="submit" value="Edit task"/></form>';
             editedTaskParent.querySelector('input').value = editedTask;
             editedTaskParent.querySelector('input').focus();
         }
     }
     else if (event.target == event.target.parentNode.querySelector('.edit')) {
-        var editedTask = event.target.parentNode.querySelector('input[type=text]').value,
-            editedTaskParent = event.target.parentNode.parentNode;
+        editedTask = event.target.parentNode.querySelector('input[type=text]').value;
+        editedTaskParent = event.target.parentNode.parentNode;
         editedTaskParent.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
         editedTaskParent.querySelector('span').textContent = editedTask;
     }
@@ -118,6 +155,7 @@ document.addEventListener('click', function(event) {
         }
     }
     tasksCount();
+    savingTaskList()
 });
 
 checkAll.addEventListener('click', function(event) {

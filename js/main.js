@@ -38,36 +38,51 @@ submitButton.addEventListener('click', function(event) {
     if (!(newTask.value.length == 0)) {
         var taskHtml = document.createElement('li');
         taskList.appendChild(taskHtml);
-        taskList.lastChild.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a>';
-        taskList.lastChild.querySelector('.check').textContent = newTask.value;
+        taskList.lastChild.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
+        taskList.lastChild.querySelector('span').textContent = newTask.value;
         newTask.value = "";
     }
   //  localStorage.setItem('savedTasks', JSON.stringify(taskList.children));
 });
 
 document.addEventListener('click', function(event) {
-    if (event.target.className == 'delete') {
-        event.preventDefault();
-        event.target.parentNode.parentNode.removeChild(event.target.parentNode);
-    }
-    else if (event.target.classList.contains('check')) {
-        event.preventDefault();
-        event.target.classList.toggle('checked');
+    event.preventDefault();
+    if (event.target.parentNode.parentNode == taskList ) {
+        if (event.target.className == 'delete') {
+            event.preventDefault();
+            event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+        }
+        else if (event.target.classList.contains('check')) {
+            event.preventDefault();
+            event.target.classList.toggle('checked');
 
-        unCheckedItems = [].filter.call(document.querySelectorAll('.check'), function(element) {
-            return !(element.classList.contains('checked'));
-        }).length;
-        if ((unCheckedItems == 1) && (checkAll.classList.contains('checked'))) {
-            checkAll.classList.remove('checked');
+            unCheckedItems = [].filter.call(document.querySelectorAll('.check'), function(element) {
+                return !(element.classList.contains('checked'));
+            }).length;
+            if ((unCheckedItems == 1) && (checkAll.classList.contains('checked'))) {
+                checkAll.classList.remove('checked');
+            }
+            else if ((unCheckedItems == 0) && (!(checkAll.classList.contains('checked')))) {
+                checkAll.classList.add('checked');
+            }
         }
-        else if ((unCheckedItems == 0) && (!(checkAll.classList.contains('checked')))) {
-            checkAll.classList.add('checked');
+        else if (event.target == event.target.parentNode.querySelector('span')) {
+            var editedTask = event.target.textContent,
+                editedTaskParent = event.target.parentNode;
+            editedTaskParent.innerHTML = '<form><input type="text"/><input class="edit" type="submit" name="submit" value="Edit task"/></form>';
+            editedTaskParent.querySelector('input').value = editedTask;
+            editedTaskParent.querySelector('input').focus();
         }
+    }
+    else if (event.target == event.target.parentNode.querySelector('.edit')) {
+        var editedTask = event.target.parentNode.querySelector('input[type=text]').value,
+            editedTaskParent = event.target.parentNode.parentNode;
+        editedTaskParent.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
+        editedTaskParent.querySelector('span').textContent = editedTask;
     }
     else if (event.target.parentNode == filter.list) {
         if (!(event.target.classList.contains('active'))) {
             [].forEach.call(event.target.parentNode.querySelectorAll('li'), function(element) {
-                console.log(element);
                 if (element.classList.contains('active')) {
                     element.classList.remove('active')
                 }

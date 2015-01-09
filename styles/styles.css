@@ -119,7 +119,7 @@ a:hover                        { text-decoration:none; }
 .content #task-list li:first-child {
 	margin-bottom: 5px;
 }
-.content #task-list li a#check-all, .content #task-list li a#delete-all {
+.content #task-list li a#check-all {
 	overflow: hidden;
 	display: block;
 	width: 30px;
@@ -155,17 +155,38 @@ a:hover                        { text-decoration:none; }
 	background: #F1F1F1 url("../images/delete30.png") no-repeat 3px;
 }
 .content #task-list li a.check {
-	overflow: hidden;
 	display: block;
-	min-height: 30px;
+	float: left;
+	height: 30px;
+	width: 30px;
 	border-radius: 3px;
 	border: 1px solid #CECECE;
 	background: #F1F1F1 url("../images/empty40.png") no-repeat 3px 3px;
-	text-indent: 50px;
-	text-decoration: none;
+}
+.content #task-list li span {
+	display: block;
+	overflow: hidden;
+	padding: 0 5px;
+	min-height: 30px;
+	border-radius: 3px;
+	border: 1px solid #CECECE;
+	background-color: #F1F1F1;
 	font-size: 16px;
 	line-height: 30px;
 }
+.content #task-list li input[type=submit] {
+	display: none;
+}
+.content #task-list li input[type=text] {
+	width: 556px;
+	padding: 9px 0 7px;
+	background-color: #F1F1F1;
+	border-radius: 3px;
+	border: 1px solid #CECECE;
+	color: #000000;
+	text-indent: 10px;
+}
+
 .content #task-list li a.check.checked, .content #task-list li a#check-all.checked {
 	background: #F1F1F1 url("../images/checked18.png") no-repeat 4px 3px;
 }

@@ -19,8 +19,8 @@ function savingTaskList() {
     var tasksArray = [],
         i = 0;
     [].forEach.call(taskList.querySelectorAll('li'), function(element) {
-        tasksArray[i] = {};
         if (element.querySelector('span')) {
+            tasksArray[i] = {};
             tasksArray[i].task = element.querySelector('span').textContent;
             if (element.querySelector('.check').classList.contains('checked')) {
                 tasksArray[i++].check = true;
@@ -30,6 +30,7 @@ function savingTaskList() {
             }
         }
         else if (element.querySelector('input[type=text]')) {
+            tasksArray[i] = {};
             tasksArray[i].task = element.querySelector('input[type=text]').value;
             tasksArray[i++].check = false;
         }
@@ -48,7 +49,7 @@ function openSavedTasks() {
             taskList.lastChild.querySelector('.check').classList.add('checked');
         }
     });
-    if (savedTasks.every(function(element) {return element.check})) {
+    if ((savedTasks.length != 0)(savedTasks.every(function(element) {return element.check}))) {
         checkAll.classList.add('checked');
     }
 }

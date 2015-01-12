@@ -39,18 +39,20 @@ function savingTaskList() {
 }
 
 function openSavedTasks() {
-    var savedTasks = JSON.parse(localStorage.getItem('tasksArray'));
-    savedTasks.forEach(function(element) {
-        var taskHtml = document.createElement('li');
-        taskList.appendChild(taskHtml);
-        taskList.lastChild.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
-        taskList.lastChild.querySelector('span').textContent = element.task;
-        if (element.check) {
-            taskList.lastChild.querySelector('.check').classList.add('checked');
+    var tasksArray = JSON.parse(localStorage.getItem('tasksArray'));
+    if (tasksArray) {
+        tasksArray.forEach(function(element) {
+            var taskHtml = document.createElement('li');
+            taskList.appendChild(taskHtml);
+            taskList.lastChild.innerHTML = '<a class="delete" href="#"></a><a class="check" href="#"></a><span></span>';
+            taskList.lastChild.querySelector('span').textContent = element.task;
+            if (element.check) {
+                taskList.lastChild.querySelector('.check').classList.add('checked');
+            }
+        });
+        if (tasksArray.every(function(element) {return element.check})) {
+            checkAll.classList.add('checked');
         }
-    });
-    if ((savedTasks.length != 0)&&(savedTasks.every(function(element) {return element.check}))) {
-        checkAll.classList.add('checked');
     }
 }
 

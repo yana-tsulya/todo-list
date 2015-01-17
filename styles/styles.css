@@ -56,7 +56,7 @@ body {
 }
 .content {
 	width: 740px;
-	min-height: 250px;
+	min-height: 300px;
 	margin: 0 auto;
 	padding: 20px;
 	border-radius: 3px;
@@ -115,6 +115,15 @@ body {
 .content .control ul li {
 	cursor: pointer;
 	line-height: 18px;
+}
+.content .control span.save {
+	display: block;
+	padding: 5px 0;
+	background: #f5f5f5;
+	border-radius: 3px;
+	border: 1px solid #CECECE;
+	cursor: pointer;
+	text-align: center;
 }
 .content #task-list {
 	overflow: hidden;

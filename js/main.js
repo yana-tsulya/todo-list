@@ -50,7 +50,7 @@ function openSavedTasks() {
                 taskList.lastChild.querySelector('.check').classList.add('checked');
             }
         });
-        if (tasksArray.every(function(element) {return element.check})) {
+        if ((tasksArray.length != 0)&&(tasksArray.every(function(element) {return element.check}))) {
             checkAll.classList.add('checked');
         }
     }
